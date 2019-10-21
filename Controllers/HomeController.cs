@@ -15,7 +15,7 @@ namespace MIS4200Team4.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Recognize your Peers";
 
             return View();
         }
