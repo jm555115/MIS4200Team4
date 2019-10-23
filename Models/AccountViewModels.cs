@@ -64,6 +64,9 @@ namespace MIS4200Team4.Models
 
     public class RegisterViewModel
     {
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
