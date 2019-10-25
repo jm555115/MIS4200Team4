@@ -23,11 +23,11 @@ textarea {
     max-width: 280px;
 }
 .navbar-inverse{
-    background-color: yellow
+    background-color: gold
 }
 .navbar-inverse .navbar.nav > li > a {
-    color: mediumpurple
+    color: rebeccapurple
 }
-.navbar-inverse .navbar-brand{
-    color: mediumpurple
-}
+    .navbar-inverse .navbar-brand {
+        color: rebeccapurple
+    }
