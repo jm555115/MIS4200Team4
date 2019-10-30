@@ -16,5 +16,7 @@ namespace MIS4200Team4.Models
         //public bool greaterGood { get; set; }
         //public bool integrityAndOpenness { get; set; }
         //public bool balance { get; set; }
+
+        
     }
 }

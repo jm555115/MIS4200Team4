@@ -11,5 +11,8 @@ namespace MIS4200Team4.Models
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string email { get; set; }
+
+        public ICollection<userDetail> userDetails { get; set; }
+
     }
 }
