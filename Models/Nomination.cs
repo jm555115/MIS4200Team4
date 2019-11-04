@@ -12,10 +12,12 @@ namespace MIS4200Team4.Models
       
             [Key] // the data annotation is necessary because there is a field called, ID,
                   // in the table and it is not the PK for the record
-            public int RecognitionID { get; set; }
-            //ID of person being recognized
-            public Guid ID { get; set; }
-           [ForeignKey(name: "ID")]
+            public int userID { get; set; }
+            public virtual UserProfile UserProfile { get; set; }
+        //ID of person being recognized
+        // public Guid ID { get; set; }
+            public int userDetailID { get; set; }
+            [ForeignKey(name: "ID")]
             public virtual userDetail userDetails { get; set; }
             [Required]
             [Display(Name = "Date of Recognition")]
