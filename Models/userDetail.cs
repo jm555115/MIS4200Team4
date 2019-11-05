@@ -12,7 +12,7 @@ namespace MIS4200Team4.Models
         public int numberOfNominations { get; set; }
         public int userId { get; set; }
         public virtual UserProfile UserProfile { get; set; }
-        public int RecognitionID { get; set; }
+        public int RecognitionId { get; set; }
         public virtual Nomination Nomination { get; set; }
        
     }

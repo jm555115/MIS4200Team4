@@ -13,7 +13,7 @@ namespace MIS4200Team4.Models
         public string lastName { get; set; }
         public string email { get; set; }
 
-        public ICollection<userDetail> userDetails { get; set; }
+        public ICollection<Nomination> Nominations { get; set; }
 
     }
 }

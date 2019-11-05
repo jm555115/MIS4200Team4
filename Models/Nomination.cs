@@ -12,19 +12,19 @@ namespace MIS4200Team4.Models
       
             [Key] // the data annotation is necessary because there is a field called, ID,
                   // in the table and it is not the PK for the record
+            public int RecognitionId { get; set; }
+            //ID of person being recognized
             public int userID { get; set; }
+            [ForeignKey(name: "userID")]
             public virtual UserProfile UserProfile { get; set; }
-        //ID of person being recognized
-        // public Guid ID { get; set; }
-            public int userDetailID { get; set; }
-            [ForeignKey(name: "ID")]
-            public virtual userDetail userDetails { get; set; }
             [Required]
             [Display(Name = "Date of Recognition")]
             public DateTime DateOfRecognition { get; set; }
+            
+            public ICollection<userDetail> userDetails { get; set; }
 
-            //…
-            [Required]
+        //…
+        [Required]
             [Display(Name = "Core Value")]
             public CoreValue award { get; set; }
             public enum CoreValue
