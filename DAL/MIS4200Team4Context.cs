@@ -5,6 +5,7 @@ using System.Web;
 using MIS4200Team4.Models;
 using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace MIS4200Team4.DAL
 {
