@@ -9,6 +9,7 @@ namespace MIS4200Team4.Models
     public class userDetail
     {
         public int userDetailID { get; set; }
+        [Display(Name = "Number of Nominations")]
         public int numberOfNominations { get; set; }
         public int userId { get; set; }
         public virtual UserProfile UserProfile { get; set; }

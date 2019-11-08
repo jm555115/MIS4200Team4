@@ -11,9 +11,10 @@ namespace MIS4200Team4.Models
     {
       
             [Key] // the data annotation is necessary because there is a field called, ID,
-                  // in the table and it is not the PK for the record
+            // in the table and it is not the PK for the record
             public int RecognitionId { get; set; }
-            //ID of person being recognized
+            //ID of person being     
+            [Display(Name = "First Name")]
             public int userID { get; set; }
             [ForeignKey(name: "userID")]
             public virtual UserProfile UserProfile { get; set; }
@@ -37,16 +38,5 @@ namespace MIS4200Team4.Models
                 Passion = 6,
                 Balance = 7
             }
-
-        //public ICollection<userDetail> userDetails { get; set; }
-
-        //public bool stewardship { get; set; }
-        //public bool culture { get; set; }
-
-        //public bool deliveryExcellence { get; set; }
-        //public bool innovation { get; set; }
-        //public bool greaterGood { get; set; }
-        //public bool integrityAndOpenness { get; set; }
-        //public bool balance { get; set; }
     }
 }
