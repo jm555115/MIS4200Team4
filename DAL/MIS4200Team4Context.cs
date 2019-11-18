@@ -14,7 +14,7 @@ namespace MIS4200Team4.DAL
         public MIS4200Team4Context() : base("name=DefaultConnection")
         {
 
-         //Database.SetInitializer(new MigrateDatabaseToLatestVersion<MIS4200Team4Context, MIS4200Team4.DAL.MIS4200Team4Context.Configuration>("DefaultConnection"));
+         Database.SetInitializer(new MigrateDatabaseToLatestVersion<MIS4200Team4Context, MIS4200Team4.Migrations.MISContext.Configuration>("DefaultConnection"));
 
         }
     public DbSet<Nomination> Nomination {get; set;}
@@ -23,8 +23,9 @@ namespace MIS4200Team4.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            base.OnModelCreating(modelBuilder);
         }
-
+    
     }
     
 }

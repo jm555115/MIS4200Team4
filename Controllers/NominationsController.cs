@@ -6,20 +6,19 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using MIS4200Team4.DAL;
 using MIS4200Team4.Models;
 
 namespace MIS4200Team4.Controllers
 {
     public class NominationsController : Controller
     {
-        private MIS4200Team4Context db = new MIS4200Team4Context();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Nominations
         public ActionResult Index()
         {
-            var nomination = db.Nomination.Include(n => n.UserProfile);
-            return View(nomination.ToList());
+            var nominations = db.Nominations.Include(n => n.UserProfile);
+            return View(nominations.ToList());
         }
 
         // GET: Nominations/Details/5
@@ -29,7 +28,7 @@ namespace MIS4200Team4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Nomination nomination = db.Nomination.Find(id);
+            Nomination nomination = db.Nominations.Find(id);
             if (nomination == null)
             {
                 return HttpNotFound();
@@ -40,7 +39,7 @@ namespace MIS4200Team4.Controllers
         // GET: Nominations/Create
         public ActionResult Create()
         {
-            ViewBag.userID = new SelectList(db.UserProfile, "userID", "firstName");
+            ViewBag.userID = new SelectList(db.UserProfiles, "userID", "firstName");
             return View();
         }
 
@@ -53,12 +52,12 @@ namespace MIS4200Team4.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Nomination.Add(nomination);
+                db.Nominations.Add(nomination);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.userID = new SelectList(db.UserProfile, "userID", "firstName", nomination.userID);
+            ViewBag.userID = new SelectList(db.UserProfiles, "userID", "firstName", nomination.userID);
             return View(nomination);
         }
 
@@ -69,12 +68,12 @@ namespace MIS4200Team4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Nomination nomination = db.Nomination.Find(id);
+            Nomination nomination = db.Nominations.Find(id);
             if (nomination == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.userID = new SelectList(db.UserProfile, "userID", "firstName", nomination.userID);
+            ViewBag.userID = new SelectList(db.UserProfiles, "userID", "firstName", nomination.userID);
             return View(nomination);
         }
 
@@ -91,7 +90,7 @@ namespace MIS4200Team4.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.userID = new SelectList(db.UserProfile, "userID", "firstName", nomination.userID);
+            ViewBag.userID = new SelectList(db.UserProfiles, "userID", "firstName", nomination.userID);
             return View(nomination);
         }
 
@@ -102,7 +101,7 @@ namespace MIS4200Team4.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Nomination nomination = db.Nomination.Find(id);
+            Nomination nomination = db.Nominations.Find(id);
             if (nomination == null)
             {
                 return HttpNotFound();
@@ -115,8 +114,8 @@ namespace MIS4200Team4.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Nomination nomination = db.Nomination.Find(id);
-            db.Nomination.Remove(nomination);
+            Nomination nomination = db.Nominations.Find(id);
+            db.Nominations.Remove(nomination);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

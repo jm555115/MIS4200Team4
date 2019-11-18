@@ -22,7 +22,7 @@ namespace MIS4200Team4.Controllers
         }
 
         // GET: UserProfiles/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
@@ -51,6 +51,7 @@ namespace MIS4200Team4.Controllers
         {
             if (ModelState.IsValid)
             {
+                userProfile.userID = Guid.NewGuid();
                 db.UserProfile.Add(userProfile);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -60,7 +61,7 @@ namespace MIS4200Team4.Controllers
         }
 
         // GET: UserProfiles/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
@@ -91,7 +92,7 @@ namespace MIS4200Team4.Controllers
         }
 
         // GET: UserProfiles/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
@@ -108,7 +109,7 @@ namespace MIS4200Team4.Controllers
         // POST: UserProfiles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
             UserProfile userProfile = db.UserProfile.Find(id);
             db.UserProfile.Remove(userProfile);

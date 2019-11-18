@@ -29,5 +29,11 @@ namespace MIS4200Team4.Models
         {
             return new ApplicationDbContext();
         }
+
+        public System.Data.Entity.DbSet<MIS4200Team4.Models.Nomination> Nominations { get; set; }
+
+        public System.Data.Entity.DbSet<MIS4200Team4.Models.UserProfile> UserProfiles { get; set; }
+
+        public System.Data.Entity.DbSet<MIS4200Team4.Models.userDetail> userDetails { get; set; }
     }
 }
