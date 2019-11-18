@@ -19,6 +19,7 @@ namespace MIS4200Team4.Models
             public Guid userID { get; set; }
             [ForeignKey(name: "userID")]
             public virtual UserProfile UserProfile { get; set; }
+
             [Required]
             [Display(Name = "Date of Recognition")]
             [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]

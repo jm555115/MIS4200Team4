@@ -8,7 +8,7 @@ namespace MIS4200Team4.Models
 {
     public class userDetail
     {
-        public int userDetailID { get; set; }
+        public Guid userDetailID { get; set; }
         [Display(Name = "Number of Nominations")]
         public int numberOfNominations { get; set; }
         public Guid userId { get; set; }

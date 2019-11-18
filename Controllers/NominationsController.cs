@@ -6,29 +6,30 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MIS4200Team4.DAL;
 using MIS4200Team4.Models;
 
 namespace MIS4200Team4.Controllers
 {
     public class NominationsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private MIS4200Team4Context db = new MIS4200Team4Context();
 
         // GET: Nominations
         public ActionResult Index()
         {
-            var nominations = db.Nominations.Include(n => n.UserProfile);
-            return View(nominations.ToList());
+            var nomination = db.Nomination.Include(n => n.UserProfile);
+            return View(nomination.ToList());
         }
 
         // GET: Nominations/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Nomination nomination = db.Nominations.Find(id);
+            Nomination nomination = db.Nomination.Find(id);
             if (nomination == null)
             {
                 return HttpNotFound();
@@ -39,7 +40,7 @@ namespace MIS4200Team4.Controllers
         // GET: Nominations/Create
         public ActionResult Create()
         {
-            ViewBag.userID = new SelectList(db.UserProfiles, "userID", "firstName");
+            ViewBag.userID = new SelectList(db.UserProfile, "userID", "firstName");
             return View();
         }
 
@@ -52,28 +53,29 @@ namespace MIS4200Team4.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Nominations.Add(nomination);
+                nomination.RecognitionId = Guid.NewGuid();
+                db.Nomination.Add(nomination);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.userID = new SelectList(db.UserProfiles, "userID", "firstName", nomination.userID);
+            ViewBag.userID = new SelectList(db.UserProfile, "userID", "firstName", nomination.userID);
             return View(nomination);
         }
 
         // GET: Nominations/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Nomination nomination = db.Nominations.Find(id);
+            Nomination nomination = db.Nomination.Find(id);
             if (nomination == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.userID = new SelectList(db.UserProfiles, "userID", "firstName", nomination.userID);
+            ViewBag.userID = new SelectList(db.UserProfile, "userID", "firstName", nomination.userID);
             return View(nomination);
         }
 
@@ -90,18 +92,18 @@ namespace MIS4200Team4.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.userID = new SelectList(db.UserProfiles, "userID", "firstName", nomination.userID);
+            ViewBag.userID = new SelectList(db.UserProfile, "userID", "firstName", nomination.userID);
             return View(nomination);
         }
 
         // GET: Nominations/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Nomination nomination = db.Nominations.Find(id);
+            Nomination nomination = db.Nomination.Find(id);
             if (nomination == null)
             {
                 return HttpNotFound();
@@ -112,10 +114,10 @@ namespace MIS4200Team4.Controllers
         // POST: Nominations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
-            Nomination nomination = db.Nominations.Find(id);
-            db.Nominations.Remove(nomination);
+            Nomination nomination = db.Nomination.Find(id);
+            db.Nomination.Remove(nomination);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -6,29 +6,30 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using MIS4200Team4.DAL;
 using MIS4200Team4.Models;
 
 namespace MIS4200Team4.Controllers
 {
     public class userDetailsController : Controller
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private MIS4200Team4Context db = new MIS4200Team4Context();
 
         // GET: userDetails
         public ActionResult Index()
         {
-            var userDetails = db.userDetails.Include(u => u.Nomination).Include(u => u.UserProfile);
+            var userDetails = db.UserDetails.Include(u => u.UserProfile);
             return View(userDetails.ToList());
         }
 
         // GET: userDetails/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            userDetail userDetail = db.userDetails.Find(id);
+            userDetail userDetail = db.UserDetails.Find(id);
             if (userDetail == null)
             {
                 return HttpNotFound();
@@ -39,8 +40,7 @@ namespace MIS4200Team4.Controllers
         // GET: userDetails/Create
         public ActionResult Create()
         {
-            ViewBag.RecognitionId = new SelectList(db.Nominations, "RecognitionId", "RecognitionId");
-            ViewBag.userId = new SelectList(db.UserProfiles, "userID", "firstName");
+            ViewBag.userId = new SelectList(db.UserProfile, "userID", "firstName");
             return View();
         }
 
@@ -53,30 +53,29 @@ namespace MIS4200Team4.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.userDetails.Add(userDetail);
+                userDetail.userDetailID = Guid.NewGuid();
+                db.UserDetails.Add(userDetail);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.RecognitionId = new SelectList(db.Nominations, "RecognitionId", "RecognitionId", userDetail.RecognitionId);
-            ViewBag.userId = new SelectList(db.UserProfiles, "userID", "firstName", userDetail.userId);
+            ViewBag.userId = new SelectList(db.UserProfile, "userID", "firstName", userDetail.userId);
             return View(userDetail);
         }
 
         // GET: userDetails/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            userDetail userDetail = db.userDetails.Find(id);
+            userDetail userDetail = db.UserDetails.Find(id);
             if (userDetail == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.RecognitionId = new SelectList(db.Nominations, "RecognitionId", "RecognitionId", userDetail.RecognitionId);
-            ViewBag.userId = new SelectList(db.UserProfiles, "userID", "firstName", userDetail.userId);
+            ViewBag.userId = new SelectList(db.UserProfile, "userID", "firstName", userDetail.userId);
             return View(userDetail);
         }
 
@@ -93,19 +92,18 @@ namespace MIS4200Team4.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.RecognitionId = new SelectList(db.Nominations, "RecognitionId", "RecognitionId", userDetail.RecognitionId);
-            ViewBag.userId = new SelectList(db.UserProfiles, "userID", "firstName", userDetail.userId);
+            ViewBag.userId = new SelectList(db.UserProfile, "userID", "firstName", userDetail.userId);
             return View(userDetail);
         }
 
         // GET: userDetails/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            userDetail userDetail = db.userDetails.Find(id);
+            userDetail userDetail = db.UserDetails.Find(id);
             if (userDetail == null)
             {
                 return HttpNotFound();
@@ -116,10 +114,10 @@ namespace MIS4200Team4.Controllers
         // POST: userDetails/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(Guid id)
         {
-            userDetail userDetail = db.userDetails.Find(id);
-            db.userDetails.Remove(userDetail);
+            userDetail userDetail = db.UserDetails.Find(id);
+            db.UserDetails.Remove(userDetail);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
