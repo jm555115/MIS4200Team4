@@ -40,7 +40,7 @@ namespace MIS4200Team4.Controllers
         // GET: Nominations/Create
         public ActionResult Create()
         {
-            ViewBag.userID = new SelectList(db.UserProfile, "userID", "firstName");
+            ViewBag.userID = new SelectList(db.UserProfile, "userID", "fullName");
             return View();
         }
 
@@ -53,7 +53,7 @@ namespace MIS4200Team4.Controllers
         {
             if (ModelState.IsValid)
             {
-                nomination.RecognitionId = Guid.NewGuid();
+                //nomination.RecognitionId = Guid.NewGuid();
                 db.Nomination.Add(nomination);
                 db.SaveChanges();
                 return RedirectToAction("Index");

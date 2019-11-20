@@ -41,5 +41,6 @@ namespace MIS4200Team4.Models
                 Passion = 6,
                 Balance = 7
             }
+     
     }
 }
